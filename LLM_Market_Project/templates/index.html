@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>LLM Market Predictor</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>Market Predictor</h1>
+        <p>Analyze financial news and visualize stock movement</p>
+
+        <!-- Form Section -->
+        <form action="/predict" method="POST">
+
+            <div class="input-group">
+                <label for="news">Financial News</label>
+                <textarea 
+                    id="news" 
+                    name="news" 
+                    rows="5" 
+                    placeholder="Enter financial news here..." 
+                    required>
+                </textarea>
+            </div>
+
+            <div class="input-group">
+                <label for="ticker">Stock Ticker</label>
+                <input 
+                    type="text" 
+                    id="ticker" 
+                    name="ticker" 
+                    placeholder="Example: AAPL, TSLA, RELIANCE.NS" 
+                    required>
+            </div>
+
+            <button type="submit">Analyze Market</button>
+
+        </form>
+
+        <!-- Result Section -->
+        {% if sentiment %}
+        <div class="result">
+
+            <h2>Analysis Result</h2>
+
+            <div class="result-box">
+                <p><strong>Sentiment:</strong> {{ sentiment }}</p>
+                <p><strong>Confidence:</strong> {{ confidence }}%</p>
+                <p><strong>Market Direction:</strong> {{ market }}</p>
+            </div>
+
+            <div class="graph-section">
+                <h3>Stock Price (Last 30 Days)</h3>
+                <img src="{{ graph }}" alt="Stock Graph" class="graph-image">
+            </div>
+
+        </div>
+        {% endif %}
+
+    </div>
+
+</body>
+</html>
